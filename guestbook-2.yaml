@@ -7,7 +7,7 @@ metadata:
 spec:
   project: default
   source:
-    path: helm-guestbook
+    path: helm-guestbook-2
     repoURL: https://github.com/plakyda-codefresh/argocd-example-apps
     targetRevision: HEAD
   destination:
