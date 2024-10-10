@@ -17,7 +17,7 @@ spec:
     namespace: guestbook-2
   syncPolicy:
     automated:
-      prune: false
+      prune: true
       selfHeal: false
       allowEmpty: false
     syncOptions:
