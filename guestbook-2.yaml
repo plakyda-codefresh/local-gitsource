@@ -23,7 +23,7 @@ spec:
     syncOptions:
       - PrunePropagationPolicy=foreground
       - Replace=false
-      - PruneLast=false
+      - PruneLast=true
       - Validate=true
       - CreateNamespace=true
       - ApplyOutOfSyncOnly=false
