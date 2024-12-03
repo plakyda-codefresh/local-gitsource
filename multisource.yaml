@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guesbook-prod-roll-multi
+  annotations: 
+    codefresh.io/app-long-sync-minutes: '1'
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io/foreground
+spec:
+  project: default
+  sources:
+    - path: gs-rollout-multisourced/ref
+      repoURL: https://github.com/oleksandr-codefresh/argocd-example-apps
+      targetRevision: multisource-ref
+      ref: test
+    - path: guestbooks/guestbook-rollout-multisourced/part-one
+      repoURL: https://github.com/oleksandr-codefresh/argocd-example-apps
+      targetRevision: hermes-prod-apps
+    - path: gs-rollout-multisourced/part-two
+      repoURL: https://github.com/oleksandr-codefresh/argocd-example-apps
+      targetRevision: multisource-2
+  destination:
+    name: in-cluster
+    namespace: test-dev
+  syncPolicy:
+    automated:
+      allowEmpty: true
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - PrunePropagationPolicy=foreground
+      - Replace=false
+      - PruneLast=false
+      - Validate=true
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=false
