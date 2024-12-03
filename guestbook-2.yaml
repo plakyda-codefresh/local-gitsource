@@ -16,10 +16,6 @@ spec:
     name: in-cluster
     namespace: guestbook-2
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: false
-      allowEmpty: false
     syncOptions:
       - PrunePropagationPolicy=foreground
       - Replace=false
