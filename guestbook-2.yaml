@@ -5,6 +5,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
   annotations:
+    argocd.argoproj.io/manifest-generate-paths: .
     codefresh.io/app-group: beta
 spec:
   project: default
