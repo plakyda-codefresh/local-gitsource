@@ -22,6 +22,14 @@ spec:
     - path: gs-rollout-multisourced/part-two
       repoURL: https://github.com/oleksandr-codefresh/argocd-example-apps
       targetRevision: multisource-2
+    - path: resources
+      repoURL: https://github.com/plakyda-codefresh/runtimes.git
+      targetRevision: HEAD
+      directory:
+        recurse: true
+        include: >-
+          {all-runtimes-all-clusters/**/*.yaml,all-runtimes-all-clusters/*.yaml,configurations/**/*.yaml,control-planes/**/*.yaml,control-planes/*.yaml,deadpool/cf-gitops-runtime.yaml,deadpool/local-gitsource.yaml,runtimes/deadpool/**/*.yaml,runtimes/deadpool/*.yaml}
+        jsonnet: null
   syncPolicy:
     automated:
       prune: true
