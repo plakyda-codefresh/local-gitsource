@@ -2,31 +2,39 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: guesbook-prod-roll-multi
-  annotations: 
-    codefresh.io/app-long-sync-minutes: '1'
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
+  annotations:
+    codefresh.io/app-long-sync-minutes: '1'
 spec:
   project: default
+  destination:
+    name: in-cluster
+    namespace: test-dev
   sources:
-    - path: gs-rollout-multisourced/ref
+    - ref: test
+      path: gs-rollout-multisourced/ref
       repoURL: https://github.com/oleksandr-codefresh/argocd-example-apps
       targetRevision: multisource-ref
-      ref: test
     - path: guestbooks/guestbook-rollout-multisourced/part-one
       repoURL: https://github.com/oleksandr-codefresh/argocd-example-apps
       targetRevision: hermes-prod-apps
     - path: gs-rollout-multisourced/part-two
       repoURL: https://github.com/oleksandr-codefresh/argocd-example-apps
       targetRevision: multisource-2
-  destination:
-    name: in-cluster
-    namespace: test-dev
+    - path: resources
+      repoURL: https://github.com/plakyda-codefresh/runtimes.git
+      targetRevision: HEAD
+      directory:
+        recurse: true
+        include: >-
+          {all-runtimes-all-clusters/**/*.yaml,all-runtimes-all-clusters/*.yaml,configurations/**/*.yaml,control-planes/**/*.yaml,control-planes/*.yaml,deadpool/cf-gitops-runtime.yaml,deadpool/local-gitsource.yaml,runtimes/deadpool/**/*.yaml,runtimes/deadpool/*.yaml}
+        jsonnet: null
   syncPolicy:
     automated:
-      allowEmpty: true
       prune: true
       selfHeal: true
+      allowEmpty: true
     syncOptions:
       - PrunePropagationPolicy=foreground
       - Replace=false
@@ -34,3 +42,5 @@ spec:
       - Validate=true
       - CreateNamespace=true
       - ApplyOutOfSyncOnly=false
+      - ServerSideApply=true
+      - RespectIgnoreDifferences=false
