@@ -12,13 +12,13 @@ spec:
     name: in-cluster
     namespace: test-dev
   sources:
-    - ref: test
-      path: gs-rollout-multisourced/ref
+    - path: gs-rollout-multisourced/ref
       repoURL: https://github.com/oleksandr-codefresh/argocd-example-apps
       targetRevision: multisource-ref
+      ref: test
     - path: guestbooks/guestbook-rollout-multisourced/part-one
       repoURL: https://github.com/oleksandr-codefresh/argocd-example-apps
-      targetRevision: hermes-prod-apps
+      targetRevision: personal-eks
     - path: gs-rollout-multisourced/part-two
       repoURL: https://github.com/oleksandr-codefresh/argocd-example-apps
       targetRevision: multisource-2
