@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: out-of-sync
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io/foreground
+  annotations:
+    argocd.argoproj.io/manifest-generate-paths: .
+    codefresh.io/app-group: beta
+spec:
+  project: default
+  source:
+    path: helm-guestbook-2
+    repoURL: https://github.com/plakyda-codefresh/argocd-example-apps
+    targetRevision: HEAD
+  destination:
+    name: in-cluster
+    namespace: out-of-sync
+  syncPolicy:
+    syncOptions:
+      - PrunePropagationPolicy=foreground
+      - Replace=false
+      - PruneLast=true
+      - Validate=true
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=false
+      - ServerSideApply=true
+      - RespectIgnoreDifferences=false
