@@ -2,11 +2,6 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: guestbook-appset
-  annotations:
-    codefresh.io/app-group: alpha
-    codefresh.io/product: orphaned-product
-  labels:
-    env: orphaned-product
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -19,6 +14,11 @@ spec:
   template:
     metadata:
       name: '{{.cluster}}-guestbook'
+      annotations:
+        codefresh.io/app-group: alpha
+        codefresh.io/product: orphaned-product
+      labels:
+        env: orphaned-product
     spec:
       project: default
       source:
