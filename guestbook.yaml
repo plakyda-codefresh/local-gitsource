@@ -6,6 +6,7 @@ metadata:
     - resources-finalizer.argocd.argoproj.io/foreground
   annotations:
     codefresh.io/app-group: alpha
+    codefresh.io/product: orphaned-product
 spec:
   project: default
   source:
