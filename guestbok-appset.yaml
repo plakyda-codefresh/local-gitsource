@@ -13,7 +13,7 @@ spec:
       - cluster: finance-preprod
   template:
     metadata:
-      name: '{{.cluster}}-guestbook'
+      name: 'renamed-{{.cluster}}-guestbook'
       annotations:
         codefresh.io/app-group: alpha
         codefresh.io/product: orphaned-product
